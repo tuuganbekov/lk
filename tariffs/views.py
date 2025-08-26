@@ -1,6 +1,8 @@
 from django.shortcuts import get_object_or_404
 from rest_framework import generics, status
 from rest_framework.response import Response
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.filters import OrderingFilter, SearchFilter
 
 from .models import Tariff, UserTariff, UserTariffHistory
 from .serializers import (
@@ -10,11 +12,21 @@ from .serializers import (
     ChangeTariffSerializer
 )
 from .services import change_user_tariff
+from .filters import TariffFilter
+from .pagination import (
+    DefaultPageNumberPagination,
+    DefaultLimitOffsetPagination,
+)
 
 
 class TariffListAPIView(generics.ListAPIView):
     queryset = Tariff.objects.all()
     serializer_class = TariffSerializer
+    filter_backends = (DjangoFilterBackend, SearchFilter, OrderingFilter, )
+    filterset_class = TariffFilter  # FILTER
+    search_fields = ('name', 'description', )  # SEARCH
+    ordering_fields = ('price', 'name',)
+    pagination_class = DefaultPageNumberPagination
 
 
 class CurrentTariffAPIView(generics.RetrieveAPIView):
