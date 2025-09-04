@@ -53,6 +53,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'config.logger_middleware.LoggerMiddleware',
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -167,3 +168,5 @@ LOGGING = {
         "level": "INFO",
     },
 }
+
+JSONPLACEHOLDER = config('JSONPLACEHOLDER')

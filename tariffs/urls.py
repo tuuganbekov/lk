@@ -5,6 +5,7 @@ from .views import (
     CurrentTariffAPIView,
     ChangeTariffAPIView,
     UserTariffHistoryAPIView,
+    SimpleAPIView,
 )
 
 
@@ -13,4 +14,5 @@ urlpatterns = [
     path('current/', CurrentTariffAPIView.as_view(), name='tariff-current'),
     path('change/', ChangeTariffAPIView.as_view(), name='tariff-change'),
     path('history/', UserTariffHistoryAPIView.as_view(), name='tariff-history'),
+    path('simple/', SimpleAPIView.as_view())
 ]
